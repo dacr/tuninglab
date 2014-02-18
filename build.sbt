@@ -15,7 +15,9 @@ mainClass in assembly := Some("tuninglab.Main")
 jarName in assembly := "tuninglab.jar"
 
 libraryDependencies ++= Seq(
-   "fr.janalyse" %% "primes" % "1.0.9"
+   "fr.janalyse" %% "primes" % "1.0.9",
+   "fr.janalyse" %% "janalyse-ssh" % "0.9.12",
+   "fr.janalyse" %% "janalyse-jmx" % "0.6.3"
 )
 
 libraryDependencies ++= Seq(
@@ -24,6 +26,10 @@ libraryDependencies ++= Seq(
    )
 
 initialCommands in console := """
+import fr.janalyse.ssh._
+import fr.janalyse.jmx._
+import concurrent._
+import duration._
 import tuninglab._
 """
 
