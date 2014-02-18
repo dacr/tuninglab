@@ -15,6 +15,7 @@ mainClass in assembly := Some("tuninglab.Main")
 jarName in assembly := "tuninglab.jar"
 
 libraryDependencies ++= Seq(
+   "fr.janalyse" %% "primes" % "1.0.9"
 )
 
 libraryDependencies ++= Seq(
@@ -29,9 +30,9 @@ import tuninglab._
 sourceGenerators in Compile <+= 
  (sourceManaged in Compile, version, name, jarName in assembly) map {
   (dir, version, projectname, jarexe) =>
-  val file = dir / "dummy" / "MetaInfo.scala"
+  val file = dir / "tuninglab" / "MetaInfo.scala"
   IO.write(file,
-  """package dummy
+  """package tuninglab
     |object MetaInfo { 
     |  val version="%s"
     |  val project="%s"
