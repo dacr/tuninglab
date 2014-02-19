@@ -26,6 +26,7 @@ libraryDependencies ++= Seq(
    )
 
 initialCommands in console := """
+import scala.reflect.BeanProperty
 import fr.janalyse.ssh._
 import fr.janalyse.jmx._
 import concurrent._
