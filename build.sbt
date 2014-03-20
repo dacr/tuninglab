@@ -25,6 +25,10 @@ libraryDependencies ++= Seq(
    "junit" % "junit" % "4.+" % "test"
    )
 
+resolvers ++= Seq(
+  "JAnalyse Repository" at "http://www.janalyse.fr/repository/"
+)
+
 initialCommands in console := """
 import scala.reflect.BeanProperty
 import fr.janalyse.ssh._
