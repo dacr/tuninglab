@@ -17,7 +17,8 @@ jarName in assembly := "tuninglab.jar"
 libraryDependencies ++= Seq(
    "fr.janalyse" %% "primes" % "1.0.9",
    "fr.janalyse" %% "janalyse-ssh" % "0.9.12",
-   "fr.janalyse" %% "janalyse-jmx" % "0.6.3"
+   "fr.janalyse" %% "janalyse-jmx" % "0.6.3",
+   "fr.janalyse" %% "unittools"    % "0.2.3"   
 )
 
 libraryDependencies ++= Seq(
