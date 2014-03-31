@@ -6,7 +6,7 @@ name := "TuningLab"
 
 version := "0.1"
 
-scalaVersion := "2.10.3"
+scalaVersion := "2.10.4"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation" )
 
@@ -18,7 +18,8 @@ libraryDependencies ++= Seq(
    "fr.janalyse" %% "primes" % "1.0.9",
    "fr.janalyse" %% "janalyse-ssh" % "0.9.12",
    "fr.janalyse" %% "janalyse-jmx" % "0.6.3",
-   "fr.janalyse" %% "unittools"    % "0.2.3"   
+   "fr.janalyse" %% "unittools"    % "0.2.3",
+   "com.jsuereth" %% "scala-arm"   % "1.3"  
 )
 
 libraryDependencies ++= Seq(

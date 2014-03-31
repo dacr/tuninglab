@@ -2,9 +2,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent._
 import scala.concurrent.duration._
 import fr.janalyse.unittools._
+import java.io._
+import java.net.{Socket}
+import resource._
+import resource.ManagedResource
 
 package object tuninglab {
 
+  def sleep(howlong:fr.janalyse.unittools.DurationHelper) {Thread.sleep(howlong)}
   def gc() = System.gc()
   def alloc(szMb: Int = 25) = Array.fill[Byte](1024 * 1024 * szMb)(0x1)
   def primesGenerator() = new fr.janalyse.primes.PrimesGenerator[Long]()
@@ -13,4 +18,30 @@ package object tuninglab {
   def howlong[T](proc: => T) = { val s = now; val r=proc; ((now - s).toDurationDesc, r) }
   def futurehowlong[T](proc: => Future[T]) = { howlong(Await.result(proc, 60.seconds)) }
 
+  def readall(reader:BufferedReader) = {
+    Stream.continually(reader.readLine()).takeWhile(_ != null).mkString("\n")
+  }
+  def printall(reader:BufferedReader) = {
+    Stream.continually(reader.readLine()).takeWhile(_ != null).foreach(println)
+    "END"
+  }
+  
+  // httpclient("localhost", 8080) (_.println("GET /check/123 HTTP/1.1\r\nHost:me.com\r\nConnection:Close\r\n\r\n"))
+  def httpclient(host:String="127.0.0.1",port:Int=80)
+                (outproc:(PrintWriter)=>Any, inproc:(BufferedReader)=>String = readall) = {
+    var res=Option.empty[String]
+    for {
+      cnx <- managed(new Socket(host, port))
+      outStream <- managed(cnx.getOutputStream)
+      out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outStream)))
+      inStream <- managed(new InputStreamReader(cnx.getInputStream))
+      in = new BufferedReader(inStream)
+    } {
+      outproc(out)
+      out.flush()
+      res = Some(inproc(in))
+    }
+    res
+  }
+  
 }
