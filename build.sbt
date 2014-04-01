@@ -6,7 +6,7 @@ name := "TuningLab"
 
 version := "0.1"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.10.3"
 
 scalacOptions ++= Seq("-unchecked", "-deprecation" )
 
@@ -23,8 +23,8 @@ libraryDependencies ++= Seq(
 )
 
 libraryDependencies ++= Seq(
-   "org.scalatest" %% "scalatest" % "2.0.+" % "test",
-   "junit" % "junit" % "4.+" % "test"
+   "org.scalatest" %% "scalatest" % "2.1.0" % "test",
+   "junit" % "junit" % "4.11" % "test"
    )
 
 resolvers ++= Seq(
