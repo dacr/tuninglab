@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
    "fr.janalyse" %% "janalyse-jmx" % "0.6.3",
    "fr.janalyse" %% "unittools"    % "0.2.3",
    "com.jsuereth" %% "scala-arm"   % "1.3",
+   "net.databinder.dispatch" %% "dispatch-core" % "0.11.+",
    "com.github.scala-incubator.io" %% "scala-io-core"      % "0.4.2",
    "com.github.scala-incubator.io" %% "scala-io-file"      % "0.4.2"
 )
@@ -43,6 +44,7 @@ import duration._
 import tuninglab._
 import scalax.file.Path
 import scalax.io._
+import dispatch._
 """
 
 sourceGenerators in Compile <+= 
