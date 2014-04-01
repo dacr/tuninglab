@@ -12,6 +12,8 @@ package object tuninglab {
   def sleep(howlong:fr.janalyse.unittools.DurationHelper) {Thread.sleep(howlong)}
   def gc() = System.gc()
   def alloc(szMb: Int = 25) = Array.fill[Byte](1024 * 1024 * szMb)(0x1)
+  def alloc(howmuch:fr.janalyse.unittools.SizeHelper) = Array.fill[Byte](howmuch.toSize.toInt)(0x1)
+  
   def primesGenerator() = new fr.janalyse.primes.PrimesGenerator[Long]()
 
   def now = System.currentTimeMillis

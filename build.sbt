@@ -19,7 +19,9 @@ libraryDependencies ++= Seq(
    "fr.janalyse" %% "janalyse-ssh" % "0.9.12",
    "fr.janalyse" %% "janalyse-jmx" % "0.6.3",
    "fr.janalyse" %% "unittools"    % "0.2.3",
-   "com.jsuereth" %% "scala-arm"   % "1.3"  
+   "com.jsuereth" %% "scala-arm"   % "1.3",
+   "com.github.scala-incubator.io" %% "scala-io-core"      % "0.4.2",
+   "com.github.scala-incubator.io" %% "scala-io-file"      % "0.4.2"
 )
 
 libraryDependencies ++= Seq(
@@ -38,6 +40,8 @@ import fr.janalyse.jmx._
 import concurrent._
 import duration._
 import tuninglab._
+import scalax.file.Path
+import scalax.io._
 """
 
 sourceGenerators in Compile <+= 
