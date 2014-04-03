@@ -75,7 +75,7 @@ package object tuninglab {
     }
   }
   
-  def slowClient(host:String="127.0.0.1", port:Int=80) {
+  def slowClient(host:String="127.0.0.1", port:Int=80, sleep:Int=10) {
     httpclient(host,port, inBuffSz=10) (
        {pout =>
           pout.println(s"GET /primesui/big HTTP/1.1")
@@ -85,7 +85,7 @@ package object tuninglab {
           pout.println(s"Connection: close")
           pout.println()},
        {reader => 
-          Thread.sleep(10*1000) ; readall(reader)} )
+          Thread.sleep(sleep*1000) ; readall(reader)} )
   }
   
 }
