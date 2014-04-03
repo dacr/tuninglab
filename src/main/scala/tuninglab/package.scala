@@ -47,20 +47,25 @@ package object tuninglab {
   }
   
   
-  def slowPost(host:String="127.0.0.1", port:Int=8080) {
+  def slowPost(host:String="127.0.0.1", port:Int=80) {
     httpclient(host,port) { pout =>
-    	pout.println(s"POST /primesui/config HTTP/1.1")
-    	pout.println(s"Host: $host:$port")
-    	pout.println(s"Accept: */*")
-    	pout.println(s"Origin: http://$host:$port")
-    	pout.println(s"Content-Type: application/x-www-form-urlencoded")
-    	pout.println(s"Cache-Control: max-age=0")
-    	pout.println(s"Referer: http://$host:$port/primesui/config")
-    	pout.println(s"Connection: close")
-    	pout.println(s"Content-Length: 17")
-    	pout.println("") 
-    	Thread.sleep(20*1000L)
-    	pout.println("""usecache:selected""")
+        pout.println(s"POST /primesui/config HTTP/1.1")
+        pout.println(s"Host: $host:$port")
+        pout.println(s"Accept: */*")
+        pout.println(s"Origin: http://$host:$port")
+        pout.println(s"Content-Type: application/x-www-form-urlencoded")
+        pout.println(s"Cache-Control: max-age=0")
+        pout.flush()
+        Thread.sleep(10*1000L) // => R
+        pout.println(s"Referer: http://$host:$port/primesui/config")
+        pout.println(s"Connection: close")
+        pout.println(s"Content-Length: 17")
+        pout.println("")
+        pout.flush()
+        Thread.sleep(10*1000L) // => W
+        pout.println("""usecache:selected""")
+        pout.flush()           // => W
+        Thread.sleep(10*1000L)
     }
   }
   
