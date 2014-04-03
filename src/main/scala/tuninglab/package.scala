@@ -46,4 +46,22 @@ package object tuninglab {
     res
   }
   
+  
+  def slowPost(host:String="127.0.0.1", port:Int=8080) {
+    httpclient(host,port) { pout =>
+    	pout.println(s"POST /primesui/config HTTP/1.1")
+    	pout.println(s"Host: $host:$port")
+    	pout.println(s"Accept: */*")
+    	pout.println(s"Origin: http://$host:$port")
+    	pout.println(s"Content-Type: application/x-www-form-urlencoded")
+    	pout.println(s"Cache-Control: max-age=0")
+    	pout.println(s"Referer: http://$host:$port/primesui/config")
+    	pout.println(s"Connection: close")
+    	pout.println(s"Content-Length: 17")
+    	pout.println("") 
+    	Thread.sleep(20*1000L)
+    	pout.println("""usecache:selected""")
+    }
+  }
+  
 }
