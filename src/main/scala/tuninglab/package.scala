@@ -29,7 +29,7 @@ package object tuninglab {
   }
   
   // httpclient("localhost", 8080) (_.println("GET /check/123 HTTP/1.1\r\nHost:me.com\r\nConnection:Close\r\n\r\n"))
-  def httpclient(host:String="127.0.0.1",port:Int=80)
+  def httpclient(host:String="127.0.0.1",port:Int=80, inBuffSz:Int=10)
                 (outproc:(PrintWriter)=>Any, inproc:(BufferedReader)=>String = readall) = {
     var res=Option.empty[String]
     for {
@@ -37,7 +37,7 @@ package object tuninglab {
       outStream <- managed(cnx.getOutputStream)
       out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(outStream)))
       inStream <- managed(new InputStreamReader(cnx.getInputStream))
-      in = new BufferedReader(inStream)
+      in = new BufferedReader(inStream, inBuffSz)
     } {
       outproc(out)
       out.flush()
@@ -67,6 +67,19 @@ package object tuninglab {
         pout.flush()           // => W
         Thread.sleep(10*1000L)
     }
+  }
+  
+  def slowClient(host:String="127.0.0.1", port:Int=80) {
+    httpclient(host,port) (
+       {pout =>
+          pout.println(s"GET /primesui HTTP/1.1")
+          pout.println(s"Host: $host:$port")
+          pout.println(s"Accept: */*")
+          pout.println(s"Cache-Control: max-age=0")
+          pout.println(s"Connection: close")
+          pout.println()},
+       {reader => 
+          Thread.sleep(10*1000) ; readall(reader)} )
   }
   
 }

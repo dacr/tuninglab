@@ -45,6 +45,10 @@ import tuninglab._
 import scalax.file.Path
 import scalax.io._
 import dispatch._
+import java.io._
+import java.net._
+import resource._
+import resource.ManagedResource
 """
 
 sourceGenerators in Compile <+= 
