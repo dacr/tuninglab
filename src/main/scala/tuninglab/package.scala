@@ -75,10 +75,10 @@ package object tuninglab {
     }
   }
   
-  def slowClient(host:String="127.0.0.1", port:Int=80, sleep:Int=10) {
+  def slowClient(host:String="127.0.0.1", port:Int=80, sleep:Int=10, size:Int=3*1024) {
     httpclient(host,port, inBuffSz=10) (
        {pout =>
-          pout.println(s"GET /primesui/big HTTP/1.1")
+          pout.println(s"GET /primesui/big/$size HTTP/1.1")
           pout.println(s"Host: $host:$port")
           pout.println(s"Accept: */*")
           pout.println(s"Cache-Control: max-age=0")
