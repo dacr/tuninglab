@@ -75,8 +75,8 @@ package object tuninglab {
     }
   }
   
-  def slowClient(host:String="127.0.0.1", port:Int=80, sleep:Int=10, size:Int=3*1024) {
-    httpclient(host,port, inBuffSz=10) (
+  def slowClient(host:String="127.0.0.1", port:Int=80, sleep:Int=10, size:Int=3*1024) = {
+    val res = httpclient(host, port, inBuffSz=10) (
        {pout =>
           pout.println(s"GET /primesui/big/$size HTTP/1.1")
           pout.println(s"Host: $host:$port")
@@ -86,6 +86,17 @@ package object tuninglab {
           pout.println()},
        {reader => 
           Thread.sleep(sleep*1000) ; readall(reader)} )
+          
+    res.map(_.size/1024)
   }
   
+  
+  def background[T](proc : => T):Future[T] = {
+    val pr = Promise[T]
+    new Thread {
+      override def run() {pr.success(proc) }
+      start()
+    }
+    pr.future
+  }
 }

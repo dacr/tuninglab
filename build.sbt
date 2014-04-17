@@ -39,6 +39,7 @@ import scala.reflect.BeanProperty
 import fr.janalyse.ssh._
 import fr.janalyse.jmx._
 import concurrent._
+import concurrent.duration._
 import ExecutionContext.Implicits.global
 import duration._
 import tuninglab._
